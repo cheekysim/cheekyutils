@@ -1,0 +1,42 @@
+# pyproject.toml
+
+[build-system]
+requires      = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cheekyutils"
+version = "1.0.0"
+description = "A set of utilities made by cheekysim"
+readme = "README.md"
+authors = [{ name = "cheekysim", email = "main@cheekysim.com" }]
+license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+keywords = ["utilities"]
+dependencies = []
+requires-python = ">=3.9"
+
+[project.optional-dependencies]
+dev = ["bumpver"]
+
+[project.urls]
+Homepage = "https://github.com/cheekysim/cheekyutils"
+
+[project.scripts]
+realpython = "reader.__main__:main"
+
+[tool.bumpver]
+current_version = "1.0.0"
+version_pattern = "MAJOR.MINOR.PATCH"
+commit_message  = "Bump version {old_version} -> {new_version}"
+commit          = true
+tag             = true
+push            = false
+
+[tool.bumpver.file_patterns]
+"pyproject.toml" = ['current_version = "{version}"', 'version = "{version}"']
+"src/reader/__init__.py" = ["{version}"]
