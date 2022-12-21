@@ -90,5 +90,33 @@ def sortObj(objects: list[object], attribute: str, reverse: bool = False):
     :type attribute: str
     :param reverse: Reverse the sort, defaults to False
     :type reverse: bool, optional
+
+    Modifies provided list
     """    
     objects.sort(key=lambda x: getattr(x, attribute), reverse=reverse)
+
+def sortDict(dictionary: dict, reverse: bool = False):
+    """Sorts a dictionary by value
+
+    :param dictionary: Dictionary to sort
+    :type dictionary: dict
+    :param reverse: Reverse the sort, defaults to False
+    :type reverse: bool, optional
+    :return: Sorted dictionary
+    :rtype: dict
+    """    
+    return dict(sorted(dictionary.items(), key=lambda x: x[1], reverse=reverse))
+
+def sortList(list: list, index: int = 0,reverse: bool = False):
+    """Sorts a list
+
+    :param list: List to sort
+    :type list: list
+    :param index: Index of the list item to use for sorting, defaults to 0
+    :type index: int, optional
+    :param reverse: Reverse the sort, defaults to False
+    :type reverse: bool, optional
+
+    Modifies provided list
+    """    
+    list.sort(key=lambda x: x[index],reverse=reverse)
