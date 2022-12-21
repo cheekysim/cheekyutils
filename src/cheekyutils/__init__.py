@@ -74,11 +74,11 @@ def rangeInput(inp: str, minimum: int, maximum: int) -> int:
     :return: The number the user entered
     :rtype: int
     """
-    inp = intInput(inp)
-    while inp < minimum or inp > maximum:
-        inp = intInput(f"Please enter a number between {minimum} and {maximum}: ")
+    number = intInput(inp)
+    while number < minimum or number > maximum:
+        number = intInput(f"Please enter a number between {minimum} and {maximum}: ")
     else:
-        return int(inp)
+        return int(number)
 
 
 def sortObj(objects: list[object], attribute: str, reverse: bool = False):
