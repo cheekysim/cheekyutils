@@ -8,7 +8,7 @@ def intInput(inp: str) -> int:
     """
     inp = input(inp)
 
-    while not isinstance(inp, int):
+    while not inp.isdigit():
         inp = input("Please enter a number: ")
     else:
         return int(inp)
@@ -23,7 +23,7 @@ def floatInput(inp: str) -> float:
     """
     inp = input(inp)
 
-    while not isinstance(inp, (int, float)):
+    while not inp.replace(".", "").isdigit():
         inp = input("Please enter a number: ")
     else:
         return float(inp)
