@@ -42,7 +42,6 @@ def puncList(inp: list[str]) -> str:
     else:
         return inp[0]
 
-
 def loopInput(inp: str, options: list[str]) -> str:
     """Loops until input is in list
     Prints a list of acceptable inputs if one is not entered.
