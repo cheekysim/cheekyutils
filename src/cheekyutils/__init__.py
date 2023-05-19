@@ -39,11 +39,11 @@ def puncList(inp: list[str]) -> str:
     :rtype: str
     """
     if len(inp) > 1:
-        return f"{', '.join(inp[:-1])} or\n{inp[-1]}"
+        return f"{', '.join(inp[:-1])} or {inp[-1]}"
     else:
         return inp[0]
 
-def loopInput(inp: str, options: list[str]) -> str:
+def loopInput(inp: str, options: list[str], autocorrect: bool = False, cutoff: int = 3) -> str:
     """Loops until input is in list
     Prints a list of acceptable inputs if one is not entered.
 
@@ -51,16 +51,59 @@ def loopInput(inp: str, options: list[str]) -> str:
     :type inp: str
     :param options: List of acceptable inputs
     :type options: list[str]
+    :param autocorrect: If the input should be autocorrected to the nearest item in the list, defaults to False
+    :type autocorrect: bool, optional
+    :param cutoff: The cutoff for the distance between input and choice, defaults to 3
+    :type cutoff: int, optional
     :return: The users input
     :rtype: str
     """
     while True:
-        choice = input(inp).lower()
-        if choice in options:
-            return choice
+        inp = input(inp).lower()
+        if autocorrect:
+            lowest = [False, 0]
+            for i in options:
+                if len(i) > lowest[1]:
+                    lowest[1] = len(i)
+
+            for option in options:
+                distances = [[0 for _ in range(len(option) + 1)] for _ in range(len(inp) + 1)]
+                for t1 in range(len(inp) + 1):
+                    distances[t1][0] = t1
+                for t2 in range(len(option) + 1):
+                    distances[0][t2] = t2
+
+                for t1 in range(1, len(inp) + 1):
+                    for t2 in range(1, len(option) + 1):
+                        if inp[t1-1] == option[t2-1]:
+                            distances[t1][t2] = distances[t1 - 1][t2 - 1]
+                        else:
+                            a = distances[t1][t2 - 1]
+                            b = distances[t1 - 1][t2]
+                            c = distances[t1 - 1][t2 - 1]
+
+                            if a <= b and a <= c:
+                                distances[t1][t2] = a + 1
+                            elif b <= a and b <= c:
+                                distances[t1][t2] = b + 1
+                            else:
+                                distances[t1][t2] = c + 1
+
+                distance = distances[len(inp)][len(option)]
+
+                if distance < lowest[1] and distance <= cutoff:
+                    lowest[0] = option
+                    lowest[1] = distance
+
+            if lowest[0] == False:
+                print(f"Choice must be: {', '.join(options[:-1])} or {options[-1]}")
+            else:
+                return lowest[0]
         else:
-            print(
-                f"Choice must be: {', '.join(options[:-1])} or {options[-1]}")
+            if inp in options:
+                return inp
+            else:
+                print(f"Choice must be: {', '.join(options[:-1])} or {options[-1]}")
 
 
 def rangeInput(inp: str, minimum: int, maximum: int) -> int:
@@ -177,3 +220,8 @@ def autoInput(inp: str, choices: list[str], cutoff: int = 3, default: str = "Inv
             lowest[1] = distance
 
     return lowest[0]
+
+def match(inp: str, options: list[str])
+
+if __name__ == '__main__':
+    print(loopInput("Input: ", ["yes", "no", "dog", "cat"]))
