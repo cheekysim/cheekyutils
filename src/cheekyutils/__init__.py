@@ -221,7 +221,5 @@ def autoInput(inp: str, choices: list[str], cutoff: int = 3, default: str = "Inv
 
     return lowest[0]
 
-def match(inp: str, options: list[str])
-
 if __name__ == '__main__':
     print(loopInput("Input: ", ["yes", "no", "dog", "cat"]))
